@@ -37,8 +37,9 @@ done
 
 mkdir SQLi/logs
 
-docker run --name SQLi-mysql -v `pwd`/SQLi/logs:/var/log/mysql -e MYSQL_ROOT_PASSWORD=root --publish $ip:3306:3306 -d mariadb:latest
+docker run --name SQLi-mysql -v `pwd`/SQLi/logs:/home/logs -e MYSQL_ROOT_PASSWORD=root --publish $ip:3306:3306 -d mariadb:latest
 
+docker exec SQLi-mysql chown mysql:adm /home/logs
 
 dpkg -s mysql-client
 
