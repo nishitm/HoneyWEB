@@ -61,6 +61,7 @@ mysql -u root -proot -h $ip -P 3306 -e 'use mysql;source SQLi/sqli.sql;'
 
 docker cp SQLi/my.cnf SQLi-mysql:/etc/mysql/
 
+docker exec SQLi-mysql mkdir /usr/share/mysql/en_US
 docker exec SQLi-mysql cp /usr/share/mysql/english/errmsg.sys /usr/share/mysql/en_US/errmsg.sys
 
 docker restart SQLi-mysql
