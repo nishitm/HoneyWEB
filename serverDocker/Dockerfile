@@ -20,6 +20,8 @@ MAINTAINER Rohit Sehgal (rsehgal@iitk.ac.in)
 #RUN npm install -g static-server
 #COPY superbisord.conf /etc/supervisor/conf.d/supervisord.conf
 
+RUN apt-get install php5 php5-mysql php5-fpm php-curl php5-json php5-cgi -y
+
 RUN mkdir -p /app/server/cse.iitk.ac.in
 WORKDIR /app/server
 ADD package.json /app/server
