@@ -1,7 +1,14 @@
 Create database faculty;
 use faculty;
 
-grant all on faculty.* to faculty@localhost IDENTIFIED BY 'ifaculty';
+create user 'admin'@'%' IDENTIFIED BY 'admin123';
+create user 'system'@'%' IDENTIFIED BY 'system123';
+create user 'john'@'%' IDENTIFIED BY 'passw0rd';
+GRANT ALL PRIVILEGES ON faculty. * TO 'admin'@'%';
+GRANT ALL PRIVILEGES ON faculty. * TO 'system'@'%';
+GRANT ALL PRIVILEGES ON faculty. * TO 'john'@'%';
+
+grant all on faculty.* to faculty@'%' IDENTIFIED BY 'ifaculty';
 
     CREATE TABLE IF NOT EXISTS `download` (
             `id` int(4) NOT NULL AUTO_INCREMENT,
@@ -36,3 +43,7 @@ insert into `users`(`username`,`password`) values ('milli_2192','kissmelove');
 insert into `users`(`username`,`password`) values ('adamjo','jafrriejones');
 insert into `users`(`username`,`password`) values ('sibble','notAhacker');
 
+INSTALL PLUGIN server_audit SONAME 'server_audit.so';
+
+SET PASSWORD FOR 'root'@'%' = PASSWORD('n0tActualD13');
+flush privileges;
