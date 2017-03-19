@@ -35,7 +35,10 @@ while [[ $ip = "" ]]; do
     read -p "Enter IP address to which you want to bind your mysql server: "  ip
 done
 
-docker run -d --name=SQLi-mysql --env="MYSQL_ROOT_PASSWORD=root" --publish $ip:3306:3306 mysql
+mkdir SQLi/logs
+
+docker run --name SQLi-mysql -v `pwd`/SQLi/logs:/var/log/mysql -e MYSQL_ROOT_PASSWORD=root --publish $ip:3306:3306 -d mariadb:latest
+
 
 dpkg -s mysql-client
 
@@ -44,8 +47,20 @@ then
     sudo apt-get install mysql-client -y
 fi
 
+dpkg -s php7.0
+
+if [ $? -ne 0 ]
+then
+    sudo apt-get install php7.0 php7.0-mysql -y
+fi
+
 sleep 60
 ip=$(echo "$ip" | xargs)
 
 mysql -u root -proot -h $ip -P 3306 -e 'use mysql;source SQLi/sqli.sql;'
 
+docker cp SQLi/my.cnf SQLi-mysql:/etc/mysql/
+
+docker exec SQLi-mysql cp /usr/share/mysql/english/errmsg.sys /usr/share/mysql/en_US/errmsg.sys
+
+docker restart SQLi-mysql
