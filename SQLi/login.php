@@ -15,7 +15,7 @@ $sql = 'SELECT * FROM users WHERE ' .
 	"name = '" . mysqli_real_escape_string($name, $link) . "' " .
 	"AND pass = '" . mysqli_real_escape_string($pass, $link) . "'";
 */
-echo $sql;
+
 $result = $link->query($sql);
 
 if (!$result) {
@@ -53,10 +53,10 @@ foreach ($rows as $row) {
 }
 ?>
 
-<form action="./login.php" method="get">
+<form action="login.php" method="post">
 <p>
 <input type="text" name="name" />
-<input type="text" name="pass" />
+<input type="password" name="pass" />
 <input type="submit" />
 </p>
 </form>
