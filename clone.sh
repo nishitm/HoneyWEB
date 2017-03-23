@@ -55,6 +55,7 @@ then
     sudo apt-get install php7.0 php7.0-mysql -y
 fi
 
+echo "Wait for a minute..."
 sleep 60
 ip=$(echo "$ip" | xargs)
 
@@ -66,3 +67,9 @@ docker exec SQLi-mysql mkdir /usr/share/mysql/en_US
 docker exec SQLi-mysql cp /usr/share/mysql/english/errmsg.sys /usr/share/mysql/en_US/errmsg.sys
 
 docker restart SQLi-mysql
+
+sudo mv serverDocker/clonned_website/$1 .
+sudo rm -rf serverDocker/clonned_website
+mkdir -p serverDocker/clonned_website
+sudo mv ./$1/* serverDocker/clonned_website/
+sudo rm -rf $1
